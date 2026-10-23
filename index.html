@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Event Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">🎓 Campus Events</div>
+      <ul class="nav-links">
+        <li><a href="#" onclick="showSection('home')">Home</a></li>
+        <li><a href="#" onclick="showSection('events')">Events</a></li>
+        <li><a href="#" onclick="showSection('admin')">Admin Panel</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <span id="user-display" class="user-badge" style="display:none;"></span>
+        <button id="login-btn" onclick="showModal('auth-modal')">Login / Register</button>
+        <button id="logout-btn" style="display:none;" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Home Section -->
+    <section id="home-section" class="active-section">
+      <div class="hero">
+        <h1>Welcome to Campus Event Hub</h1>
+        <p>Discover, register, and organize university seminars, workshops, sports, and competitions.</p>
+        <button class="cta-btn" onclick="showSection('events')">Explore Events</button>
+      </div>
+      <h2>Featured Events</h2>
+      <div id="featured-events-grid" class="events-grid"></div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events-section" class="hidden">
+      <h2>All Campus Events</h2>
+      <div class="controls-bar">
+        <input type="text" id="search-input" placeholder="Search events by name or keyword..." oninput="filterEvents()">
+        <select id="category-filter" onchange="filterEvents()">
+          <option value="ALL">All Categories</option>
+          <option value="Seminar">Seminar</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Sports">Sports</option>
+          <option value="Competition">Competition</option>
+        </select>
+      </div>
+      <div id="events-list-grid" class="events-grid"></div>
+    </section>
+
+    <!-- Admin Panel Section -->
+    <section id="admin-section" class="hidden">
+      <h2>Admin Event Manager</h2>
+      <div class="admin-grid">
+        <form id="create-event-form" onsubmit="createEvent(event)">
+          <h3>Create New Event</h3>
+          <input type="text" id="event-title" placeholder="Event Title" required>
+          <textarea id="event-desc" placeholder="Event Description" required></textarea>
+          <input type="date" id="event-date" required>
+          <input type="text" id="event-time" placeholder="Time (e.g. 10:00 AM)" required>
+          <input type="text" id="event-location" placeholder="Location" required>
+          <select id="event-category" required>
+            <option value="Seminar">Seminar</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Sports">Sports</option>
+            <option value="Competition">Competition</option>
+          </select>
+          <input type="number" id="event-capacity" placeholder="Capacity" required>
+          <button type="submit" class="submit-btn">Add Event</button>
+        </form>
+
+        <div class="admin-registrations">
+          <h3>Registered Students</h3>
+          <div id="registrations-list">No registrations yet.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Login/Register Modal -->
+  <div id="auth-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('auth-modal')">&times;</span>
+      <div class="tab-header">
+        <button id="tab-login" class="active-tab" onclick="switchAuthTab('login')">Login</button>
+        <button id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+      
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <input type="email" id="login-email" placeholder="Email Address" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+
+      <form id="signup-form" class="hidden" onsubmit="handleSignup(event)">
+        <input type="text" id="signup-name" placeholder="Full Name" required>
+        <input type="email" id="signup-email" placeholder="Email Address" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Campus Event Management System | Group Mini Project</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
